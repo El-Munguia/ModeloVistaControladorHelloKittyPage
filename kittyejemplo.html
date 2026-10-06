@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kittys Kawaii 🐱</title>
+
+    <style>
+
+        /* ============================================================
+           VISTA
+           ============================================================ */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            overflow: hidden;
+
+            font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
+
+            background:
+                radial-gradient(circle at 20% 20%, #fff 0 3px, transparent 4px),
+                radial-gradient(circle at 80% 30%, #fff 0 2px, transparent 3px),
+                radial-gradient(circle at 40% 70%, #fff 0 3px, transparent 4px),
+                linear-gradient(135deg, #ffdff1, #dff5ff, #eee1ff);
+
+            background-size:
+                180px 180px,
+                220px 220px,
+                250px 250px,
+                100% 100%;
+        }
+
+
+        /* ============================================================
+           ÁREA DE LAS KITTY
+           ============================================================ */
+
+        #contenedorKittys {
+            position: fixed;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            pointer-events: none;
+        }
+
+
+        /* ============================================================
+           KITTY
+           ============================================================ */
+
+        .kitty {
+
+            position: fixed;
+
+            top: -150px;
+
+            z-index: 10;
+
+            user-select: none;
+
+            animation-name:
+                caer,
+                moverse;
+
+            animation-duration:
+                12s,
+                3s;
+
+            animation-timing-function:
+                linear,
+                ease-in-out;
+
+            animation-iteration-count:
+                infinite,
+                infinite;
+        }
+
+
+        .kitty-contenido {
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 3px;
+
+            color: #7c4d83;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            white-space: nowrap;
+
+            text-shadow:
+                0 1px 0 white,
+                1px 0 0 white,
+                -1px 0 0 white,
+                0 -1px 0 white;
+
+        }
+
+
+        .kitty img {
+
+            display: block;
+
+            filter:
+                drop-shadow(0 4px 3px rgba(130, 70, 130, .18));
+
+        }
+
+
+        /* ============================================================
+           ANIMACIONES
+           ============================================================ */
+
+        @keyframes caer {
+
+            0% {
+                top: -180px;
+            }
+
+            100% {
+                top: 110vh;
+            }
+
+        }
+
+
+        @keyframes moverse {
+
+            0% {
+                transform: translateX(0) rotate(-4deg);
+            }
+
+            25% {
+                transform: translateX(60px) rotate(4deg);
+            }
+
+            50% {
+                transform: translateX(0) rotate(-4deg);
+            }
+
+            75% {
+                transform: translateX(-60px) rotate(4deg);
+            }
+
+            100% {
+                transform: translateX(0) rotate(-4deg);
+            }
+
+        }
+
+
+        /* ============================================================
+           FORMULARIO
+           ============================================================ */
+
+        .formulario {
+
+            position: fixed;
+
+            z-index: 1000;
+
+            left: 50%;
+
+            bottom: 20px;
+
+            transform: translateX(-50%);
+
+            width: min(600px, calc(100% - 30px));
+
+            padding: 18px 22px;
+
+            background: rgba(255, 255, 255, .90);
+
+            backdrop-filter: blur(12px);
+
+            border: 3px solid #f3a8ce;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 10px 35px rgba(125, 70, 120, .20),
+                0 0 0 5px rgba(255, 255, 255, .5);
+
+        }
+
+
+        .titulo {
+
+            text-align: center;
+
+            margin-bottom: 12px;
+
+            color: #814c82;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .titulo span {
+
+            color: #f08ab9;
+
+        }
+
+
+        form {
+
+            display: grid;
+
+            grid-template-columns: 1fr 130px auto;
+
+            gap: 10px;
+
+            align-items: end;
+
+        }
+
+
+        .campo {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+        }
+
+
+        .campo label {
+
+            color: #865477;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 10px 12px;
+
+            border: 2px solid #edc3db;
+
+            border-radius: 14px;
+
+            outline: none;
+
+            background: #fff8fc;
+
+            color: #704866;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+        }
+
+
+        input:focus {
+
+            border-color: #e991bd;
+
+            box-shadow:
+                0 0 0 3px rgba(233, 145, 189, .15);
+
+        }
+
+
+        button {
+
+            padding: 11px 17px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(135deg, #f29ac3, #c99ae9);
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 4px 10px rgba(180, 110, 170, .25);
+
+            transition: .2s;
+
+        }
+
+
+        button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 14px rgba(180, 110, 170, .35);
+
+        }
+
+
+        button:active {
+
+            transform: scale(.96);
+
+        }
+
+
+        /* ============================================================
+           DECORACIONES
+           ============================================================ */
+
+        .decoracion {
+
+            position: fixed;
+
+            z-index: 2;
+
+            color: rgba(255,255,255,.8);
+
+            pointer-events: none;
+
+        }
+
+
+        .corazon1 {
+            top: 15%;
+            left: 8%;
+            font-size: 30px;
+        }
+
+        .corazon2 {
+            top: 35%;
+            right: 8%;
+            font-size: 25px;
+        }
+
+        .estrella1 {
+            top: 12%;
+            right: 20%;
+            font-size: 25px;
+        }
+
+        .estrella2 {
+            top: 60%;
+            left: 15%;
+            font-size: 20px;
+        }
+
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+
+        @media (max-width: 600px) {
+
+            form {
+
+                grid-template-columns: 1fr 1fr;
+
+            }
+
+            .campo:first-child {
+
+                grid-column: span 2;
+
+            }
+
+            button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================================================================
+     DECORACIONES
+     ================================================================= -->
+
+<div class="decoracion corazon1">♡</div>
+<div class="decoracion corazon2">♡</div>
+
+<div class="decoracion estrella1">✦</div>
+<div class="decoracion estrella2">✧</div>
+
+
+<!-- ================================================================
+     VISTA
+     
+     Aquí aparecerán las Kittys generadas por el controlador.
+     ================================================================= -->
+
+<div id="contenedorKittys"></div>
+
+
+<!-- ================================================================
+     VISTA
+     
+     Formulario para agregar Kittys.
+     ================================================================= -->
+
+<div class="formulario">
+
+    <div class="titulo">
+        🐱 <span>Agrega una Kitty</span> 🐱
+    </div>
+
+
+    <form id="formKitty">
+
+        <div class="campo">
+
+            <label for="nombre">
+                💕 Nombre
+            </label>
+
+            <input
+                type="text"
+                id="nombre"
+                placeholder="Ej. Kitty Luna"
+                required
+            >
+
+        </div>
+
+
+        <div class="campo">
+
+            <label for="tamano">
+                ✨ Tamaño en px
+            </label>
+
+            <input
+                type="number"
+                id="tamano"
+                min="20"
+                max="200"
+                value="50"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
+            🐾 Agregar
+        </button>
+
+    </form>
+
+</div>
+
+
+<script>
+
+
+/* ###################################################################
+   
+   MODELO
+   -------------------------------------------------------------------
+   
+   Aquí se encuentran los DATOS de nuestra aplicación.
+   
+   Cada Kitty tiene:
+   
+       nombre
+       tamano
+   
+   ################################################################### */
+
+
+const kittys = [
+
+    {
+        nombre: "Kitty halloweenesca",
+        tamano: 50
+    },
+
+    {
+        nombre: "Kitty Brujita",
+        tamano: 40
+    },
+
+    {
+        nombre: "Kitty propiedad de Fanny",
+        tamano: 111
+    },
+
+    {
+        nombre: "Kitty de Munguenge",
+        tamano: 125
+    },
+
+    {
+        nombre: "Kitty Antisemita",
+        tamano: 55
+    }
+
+];
+
+
+const imagenKitty =
+    "https://cutekawaiiresources.files.wordpress.com/2015/01/lisademars1193868051.gif?w=150&h=142";
+
+
+
+/* ###################################################################
+   
+   CONTROLADOR
+   ################################################################### */
+
+
+/*
+    Genera una Kitty visualmente.
+*/
+
+function generarKitty(kitty, posicion) {
+
+
+    const elemento =
+        document.createElement("div");
+
+
+    elemento.classList.add("kitty");
+
+
+    /*
+        Posición horizontal basada en
+        la posición dentro del arreglo.
+    */
+
+    const posiciones = [
+        4, 14, 24, 34, 44,
+        54, 64, 74, 84, 94
+    ];
+
+
+    elemento.style.left =
+        posiciones[posicion % posiciones.length] + "%";
+
+
+    /*
+        Velocidad y movimiento.
+
+        Cada Kitty tendrá un retraso diferente.
+    */
+
+    elemento.style.animationDelay =
+        (posicion * 1.4) + "s, " +
+        (posicion * .35) + "s";
+
+
+    /*
+        Vista de la Kitty.
+    */
+
+    elemento.innerHTML = `
+
+        <div class="kitty-contenido">
+
+            <img
+                src="${imagenKitty}"
+                width="${kitty.tamano}"
+                alt="${kitty.nombre}"
+            >
+
+            <span>
+                ${kitty.nombre}
+            </span>
+
+        </div>
+
+    `;
+
+
+    return elemento;
+
+}
+
+
+
+/*
+    ---------------------------------------------------------------
+    MOSTRAR KITTY
+    ---------------------------------------------------------------
+    
+    Lee el MODELO y genera la VISTA.
+*/
+
+function mostrarKittys() {
+
+
+    const contenedor =
+        document.getElementById(
+            "contenedorKittys"
+        );
+
+
+    /*
+        Limpiamos la vista.
+    */
+
+    contenedor.innerHTML = "";
+
+
+    /*
+        Recorremos el modelo.
+    */
+
+    kittys.forEach(
+        (kitty, indice) => {
+
+
+            /*
+                El controlador genera
+                cada elemento visual.
+            */
+
+            const elemento =
+                generarKitty(
+                    kitty,
+                    indice
+                );
+
+
+            /*
+                Lo agregamos a la vista.
+            */
+
+            contenedor.appendChild(
+                elemento
+            );
+
+        }
+    );
+
+}
+
+
+
+/*
+    ---------------------------------------------------------------
+    AGREGAR KITTY
+    ---------------------------------------------------------------
+*/
+
+function agregarKitty() {
+
+
+    /*
+        Obtenemos los datos
+        de la vista.
+    */
+
+    const nombre =
+        document.getElementById(
+            "nombre"
+        ).value.trim();
+
+
+    const tamano =
+        Number(
+            document.getElementById(
+                "tamano"
+            ).value
+        );
+
+
+    /*
+        Validación.
+    */
+
+    if (
+        nombre === "" ||
+        tamano < 20 ||
+        tamano > 200
+    ) {
+
+        alert(
+            "🐱 Escribe un nombre y un tamaño entre 20 y 200."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        -----------------------------------------------------------
+        MODIFICAMOS EL MODELO
+        -----------------------------------------------------------
+    */
+
+    kittys.push({
+
+        nombre: nombre,
+
+        tamano: tamano
+
+    });
+
+
+    /*
+        -----------------------------------------------------------
+        ACTUALIZAMOS LA VISTA
+        -----------------------------------------------------------
+    */
+
+    mostrarKittys();
+
+
+    /*
+        Limpiamos formulario.
+    */
+
+    document
+        .getElementById("formKitty")
+        .reset();
+
+
+    document
+        .getElementById("tamano")
+        .value = 50;
+
+}
+
+
+
+/* ###################################################################
+   
+   EVENTOS
+   ################################################################### */
+
+
+/*
+    Escuchamos el formulario.
+*/
+
+document
+    .getElementById("formKitty")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            /*
+                El evento llama
+                al CONTROLADOR.
+            */
+
+            agregarKitty();
+
+        }
+    );
+
+
+
+/* ###################################################################
+   
+   INICIO
+   ################################################################### */
+
+
+/*
+    Cargamos las Kittys iniciales.
+*/
+
+mostrarKittys();
+
+
+</script>
+
+</body>
+</html>
